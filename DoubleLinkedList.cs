@@ -22,16 +22,13 @@ namespace DoubleLinkedList
 
             _head ??= newNode;
 
-            if (_tail is null)
-            {
-                _tail = newNode;
-            }
-            else
+            if (_tail is not null)
             {
                 _tail.NextNode = newNode;
                 newNode.PreviousNode = _tail;
-                _tail = newNode;
             }
+
+            _tail = newNode;
 
             Count++;
         }
@@ -42,16 +39,13 @@ namespace DoubleLinkedList
 
             _tail ??= newNode;
 
-            if (_head is null)
-            {
-                _head = newNode;
-            }
-            else
+            if (_head is not null)
             {
                 _head.PreviousNode = newNode;
                 newNode.NextNode = _head;
-                _head = newNode;
             }
+
+            _head = newNode;
 
             Count++;
         }
