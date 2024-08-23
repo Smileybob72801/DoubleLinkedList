@@ -18,21 +18,21 @@ namespace DoubleLinkedList
             Console.WriteLine(myList.Contains("Alex"));
             Console.WriteLine();
 
-            foreach(var item in myList)
+            foreach(string? item in myList)
             {
                 Console.WriteLine(item);
             }
             Console.WriteLine();
 
             myList.Remove("Little");
-            foreach (var item in myList)
+            foreach (string? item in myList)
             {
                 Console.WriteLine(item);
             }
             Console.WriteLine();
 
             myList.Remove("loves");
-            foreach (var item in myList)
+            foreach (string? item in myList)
             {
                 Console.WriteLine(item);
             }

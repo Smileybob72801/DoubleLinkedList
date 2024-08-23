@@ -2,23 +2,23 @@
 
 namespace DoubleLinkedList
 {
-    public class DoubleLinkedList<T> : ILinkedList<T>
+    public class DoubleLinkedList<T> : ILinkedList<T?>
     {
-        public Node<T>? Head { get; set; }
-        public Node<T>? Tail { get; set; }
+        public Node<T?>? Head { get; set; }
+        public Node<T?>? Tail { get; set; }
 
         public int Count { get; set; }
 
         public bool IsReadOnly => false;
 
-        public void Add(T item)
+        public void Add(T? item)
         {
             AddToEnd(item);
         }
 
-        public void AddToEnd(T item)
+        public void AddToEnd(T? item)
         {
-            Node<T> newNode = new(item);
+            Node<T?> newNode = new(item);
 
             Head ??= newNode;
 
@@ -36,9 +36,9 @@ namespace DoubleLinkedList
             Count++;
         }
 
-        public void AddToFront(T item)
+        public void AddToFront(T? item)
         {
-            Node<T> newNode = new(item);
+            Node<T?> newNode = new(item);
 
             Tail ??= newNode;
 
@@ -63,13 +63,13 @@ namespace DoubleLinkedList
             Count = 0;
         }
 
-        public bool Contains(T item)
+        public bool Contains(T? item)
         {
-            Node<T>? currentNode = Head;
+            Node<T?>? currentNode = Head;
 
             while (currentNode is not null)
             {
-                T data = currentNode.Data;
+                T? data = currentNode.Data;
 
                 if ( (data is null && item is null) ||
                     (data is not null && data.Equals(item)))
@@ -93,7 +93,7 @@ namespace DoubleLinkedList
             if (array.Length - arrayIndex < Count)
                 throw new ArgumentException("Insufficient space in target array.");
 
-            Node<T>? currentNode = Head;
+            Node<T?>? currentNode = Head;
 
             while (currentNode is not null)
             {
@@ -105,13 +105,13 @@ namespace DoubleLinkedList
             }
         }
 
-        public bool Remove(T item)
+        public bool Remove(T? item)
         {
-            Node<T>? currentNode = Head;
+            Node<T?>? currentNode = Head;
 
             while (currentNode is not null)
             {
-                T data = currentNode.Data;
+                T? data = currentNode.Data;
 
                 if ((data is null && item is null) ||
                     (data is not null && data.Equals(item)))
@@ -142,9 +142,9 @@ namespace DoubleLinkedList
             return false;
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<T?> GetEnumerator()
         {
-            Node<T>? currentNode = Head;
+            Node<T?>? currentNode = Head;
 
             while (currentNode is not null)
             {
@@ -155,7 +155,7 @@ namespace DoubleLinkedList
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            Node<T>? currentNode = Head;
+            Node<T?>? currentNode = Head;
 
             while (currentNode is not null)
             {
