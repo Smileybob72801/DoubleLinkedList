@@ -10,11 +10,11 @@ namespace DoubleLinkedList
 
             string[] empty = new string[12];
 
-            DoubleLinkedList<string> myList = [];
+            ILinkedList<string?> myList = new DoubleLinkedList<string?>();
 
             foreach (string word in words)
             {
-                myList.AddToEnd(word);
+                myList.AddItemToEnd(word);
             }
 
             Console.WriteLine("Results of CopyTo method:");
@@ -39,7 +39,7 @@ namespace DoubleLinkedList
             }
             Console.WriteLine();
 
-            myList.Reverse();
+            myList.ReverseNodes();
             Console.WriteLine("Reversing the list," +
                 "then using the enumerator again to iterate through the linked list.");
             foreach (string? item in myList)
@@ -68,6 +68,29 @@ namespace DoubleLinkedList
             Console.WriteLine("Calling the Clear method, then iterating the linked list.");
             myList.Clear();
             foreach (string? item in myList)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine();
+
+            ILinkedList<string?> newList = new DoubleLinkedList<string?>();
+
+            Node<string?> customNodeOne = new("The Taskmaster");
+            Node<string?> customNodeTwo = new("is fair, ");
+            Node<string?> customNodeThree = new("but mostly cruel.");
+
+            Console.WriteLine("Building a new list with nodes rather than strings.");
+            newList.AddNode(customNodeOne);
+            newList.AddNode(customNodeThree);
+            foreach (string? item in newList)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("Inserting a node before another node, an O(1) operation.");
+            newList.InsertBeforeNode(customNodeTwo, customNodeThree);
+            foreach (string? item in newList)
             {
                 Console.WriteLine(item);
             }

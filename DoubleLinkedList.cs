@@ -13,10 +13,10 @@ namespace DoubleLinkedList
 
         public void Add(T? item)
         {
-            AddToEnd(item);
+            AddItemToEnd(item);
         }
 
-        public void AddToEnd(T? item)
+        public void AddItemToEnd(T? item)
         {
             Node<T?> newNode = new(item);
             _head ??= newNode;
@@ -32,7 +32,7 @@ namespace DoubleLinkedList
             Count++;
         }
 
-        public void AddToFront(T? item)
+        public void AddItemToFront(T? item)
         {
             Node<T?> newNode = new(item);
             _tail ??= newNode;
@@ -95,6 +95,66 @@ namespace DoubleLinkedList
             }
         }
 
+        public void AddNode(Node<T?> newNode)
+        {
+            ArgumentNullException.ThrowIfNull(newNode);
+
+            if (_head is null)
+            {
+                _head = newNode;
+                _tail = newNode;
+            }
+            else if (_tail is not null)
+            {
+                InsertAfterNode(newNode, _tail);
+            }
+            else
+            {
+                throw new InvalidOperationException(
+                    $"{nameof(_tail)} is null, cannot insert node.");
+            }
+        }
+
+        public void InsertAfterNode(Node<T?> newNode, Node<T?> originalNode)
+        {
+            ArgumentNullException.ThrowIfNull(newNode);
+            ArgumentNullException.ThrowIfNull(originalNode);
+
+            Node<T?>? originalNextNode = originalNode.NextNode;
+
+            newNode.PreviousNode = originalNode;
+            newNode.NextNode = originalNextNode;
+
+            if (originalNextNode is not null)
+                originalNextNode.PreviousNode = newNode;
+
+            originalNode.NextNode = newNode;
+
+            if (originalNode.Equals(_tail))
+                _tail = newNode;
+
+            Count++;
+        }
+
+        public void InsertBeforeNode(Node<T?> newNode, Node<T?> originalNode)
+        {
+            ArgumentNullException.ThrowIfNull(newNode);
+            ArgumentNullException.ThrowIfNull(originalNode);
+
+            Node<T?>? originalPreviousNode = originalNode.PreviousNode;
+
+            newNode.NextNode = originalNode;
+            newNode.PreviousNode = originalPreviousNode;
+
+            if (originalPreviousNode is not null)
+                originalPreviousNode.NextNode = newNode;
+
+            if (originalNode.Equals(_head))
+                _head = newNode;
+
+            Count++;
+        }
+
         public bool Remove(T? item)
         {
             foreach (Node<T?> node in GetNodes())
@@ -128,7 +188,7 @@ namespace DoubleLinkedList
             return false;
         }
 
-        public void Reverse()
+        public void ReverseNodes()
         {
             Node<T?>? currentNode = _head;
             Node<T?>? tempNode = null;
@@ -162,20 +222,7 @@ namespace DoubleLinkedList
 
         private IEnumerable<Node<T?>> GetNodes()
         {
-            Node<T?>? currentNode;
-
-            if (_head is null)
-            {
-                Console.WriteLine($"Hi! this is the private {nameof(GetNodes)} method here, " +
-                    "telling you that you cannot iterate through a linked list with no head!" +
-                    $"{Environment.NewLine}Did you use the Clear method, " +
-                    "or the Remove method on a linked list with just one node?");
-                yield break;
-            }
-            else
-            {
-                currentNode = _head;
-            }
+            Node<T?>? currentNode = _head;
 
             while (currentNode is not null)
             {

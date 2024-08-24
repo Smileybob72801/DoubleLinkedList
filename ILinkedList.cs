@@ -2,7 +2,11 @@
 {
     public interface ILinkedList<T> : ICollection<T>
     {
-        void AddToFront(T? item);
-        void AddToEnd(T? item);
+        void AddItemToFront(T? item);
+        void AddItemToEnd(T? item);
+        void AddNode(Node<T?> newNode);
+        void InsertAfterNode(Node<T?> newNode, Node<T?> originalNode);
+        void InsertBeforeNode(Node<T?> newNode, Node<T?> originalNode);
+        void ReverseNodes();
     }
 }
