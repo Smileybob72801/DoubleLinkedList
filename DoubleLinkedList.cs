@@ -159,6 +159,10 @@ namespace DoubleLinkedList
 
             if (_head is null)
             {
+                Console.WriteLine($"Hi! this is the private {nameof(GetNodes)} method here, " +
+                    "telling you that you cannot iterate through a linked list with no head!" +
+                    $"{Environment.NewLine}Did you use the Clear method, " +
+                    "or the Remove method on a linked list with just one node?");
                 yield break;
             }
             else
