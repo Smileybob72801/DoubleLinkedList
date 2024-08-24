@@ -39,6 +39,15 @@ namespace DoubleLinkedList
             }
             Console.WriteLine();
 
+            myList.Reverse();
+            Console.WriteLine("Reversing the list," +
+                "then using the enumerator again to iterate through the linked list.");
+            foreach (string? item in myList)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine();
+
             Console.WriteLine("Using the Remove method to remove \"Little\", and then " +
                 "iterating the linked list again.");
             myList.Remove("Little");

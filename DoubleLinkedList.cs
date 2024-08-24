@@ -19,7 +19,6 @@ namespace DoubleLinkedList
         public void AddToEnd(T? item)
         {
             Node<T?> newNode = new(item);
-
             _head ??= newNode;
 
             if (_tail is not null)
@@ -36,7 +35,6 @@ namespace DoubleLinkedList
         public void AddToFront(T? item)
         {
             Node<T?> newNode = new(item);
-
             _tail ??= newNode;
 
             if (_head is not null)
@@ -55,7 +53,6 @@ namespace DoubleLinkedList
             foreach(Node<T?> node in GetNodes())
             {
                 node.NextNode = null;
-
                 node.PreviousNode = null;
             }
 
@@ -94,7 +91,6 @@ namespace DoubleLinkedList
             foreach (Node<T?> node in GetNodes())
             {
                 array[arrayIndex] = node.Data;
-
                 arrayIndex++;
             }
         }
@@ -130,6 +126,27 @@ namespace DoubleLinkedList
             }
 
             return false;
+        }
+
+        public void Reverse()
+        {
+            Node<T?>? currentNode = _head;
+            Node<T?>? tempNode = null;
+
+            while (currentNode is not null)
+            {
+                tempNode = currentNode.PreviousNode;
+                currentNode.PreviousNode = currentNode.NextNode;
+                currentNode.NextNode = tempNode;
+                currentNode = currentNode.PreviousNode;
+            }
+
+            if (tempNode is not null)
+            {
+                tempNode = _head;
+                _head = _tail;
+                _tail = tempNode;
+            }
         }
 
         public IEnumerator<T?> GetEnumerator()
