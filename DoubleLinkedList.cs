@@ -52,16 +52,17 @@ namespace DoubleLinkedList
 
         public void Clear()
         {
-            foreach (Node<T?> node in GetNodes())
-            {
-                if (node.NextNode is not null)
-                    node.NextNode.PreviousNode = null;
+            Node<T?>? currentNode = _head;
 
-                if (node.PreviousNode is not null)
-                {
-                    node.PreviousNode.NextNode = null;
-                    node.PreviousNode = null;
-                }
+            while (currentNode is not null)
+            {
+                Node<T?>? nextNode = currentNode.NextNode;
+
+                currentNode.NextNode = null;
+
+                currentNode.PreviousNode = null;
+
+                currentNode = nextNode;
             }
 
             _head = null;
@@ -110,26 +111,24 @@ namespace DoubleLinkedList
 
         public bool Remove(T? item)
         {
-            Node<T?>? currentNode = _head;
-
-            while (currentNode is not null)
+            foreach (Node<T?> node in GetNodes())
             {
-                T? data = currentNode.Data;
+                T? data = node.Data;
 
                 if ((data is null && item is null) ||
                     (data is not null && data.Equals(item)))
                 {
-                    if (currentNode.Equals(_head))
-                        _head = currentNode.NextNode;
+                    if (node.Equals(_head))
+                        _head = node.NextNode;
 
-                    if (currentNode.Equals(_tail))
-                        _tail = currentNode.PreviousNode;
+                    if (node.Equals(_tail))
+                        _tail = node.PreviousNode;
 
-                    if (currentNode.PreviousNode is not null)
-                        currentNode.PreviousNode.NextNode = currentNode.NextNode;
+                    if (node.NextNode is not null)
+                        node.NextNode.PreviousNode = node.PreviousNode;
 
-                    if (currentNode.NextNode is not null)
-                        currentNode.NextNode.PreviousNode = currentNode.PreviousNode;
+                    if (node.PreviousNode is not null)
+                        node.PreviousNode.NextNode = node.NextNode;
 
                     if (_head is null)
                         _tail = null;
@@ -138,8 +137,6 @@ namespace DoubleLinkedList
 
                     return true;
                 }
-
-                currentNode = currentNode.NextNode;
             }
 
             return false;
