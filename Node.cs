@@ -5,6 +5,7 @@
         public T? Data { get; } = data;
         public Node<T?>? NextNode { get; set; }
         public Node<T?>? PreviousNode { get; set; }
+        public ILinkedList<T?>? Container { get; set; }
 
         public override string ToString() =>
             $"{nameof(Data)}: {Data}{Environment.NewLine}" +

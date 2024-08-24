@@ -18,7 +18,11 @@ namespace DoubleLinkedList
 
         public void AddItemToEnd(T? item)
         {
-            Node<T?> newNode = new(item);
+            Node<T?> newNode = new(item)
+            {
+                Container = this
+            };
+
             _head ??= newNode;
 
             if (_tail is not null)
@@ -34,7 +38,11 @@ namespace DoubleLinkedList
 
         public void AddItemToFront(T? item)
         {
-            Node<T?> newNode = new(item);
+            Node<T?> newNode = new(item)
+            {
+                Container = this
+            };
+
             _tail ??= newNode;
 
             if (_head is not null)
@@ -103,6 +111,7 @@ namespace DoubleLinkedList
             {
                 _head = newNode;
                 _tail = newNode;
+                newNode.Container = this;
             }
             else if (_tail is not null)
             {
@@ -119,6 +128,8 @@ namespace DoubleLinkedList
         {
             ArgumentNullException.ThrowIfNull(newNode);
             ArgumentNullException.ThrowIfNull(originalNode);
+
+            newNode.Container = this;
 
             Node<T?>? originalNextNode = originalNode.NextNode;
 
@@ -140,6 +151,8 @@ namespace DoubleLinkedList
         {
             ArgumentNullException.ThrowIfNull(newNode);
             ArgumentNullException.ThrowIfNull(originalNode);
+
+            newNode.Container = this;
 
             Node<T?>? originalPreviousNode = originalNode.PreviousNode;
 
@@ -186,6 +199,31 @@ namespace DoubleLinkedList
             }
 
             return false;
+        }
+
+        public void RemoveNode(Node<T?> node)
+        {
+            ArgumentNullException.ThrowIfNull(node);
+
+            if (node.Container?.Equals(this) != true)
+                throw new InvalidOperationException("Node is not in this container.");
+
+            var originalNextNode = node.NextNode;
+            var originalPreviousNode = node.PreviousNode;
+
+            if (originalPreviousNode is not null)
+                originalPreviousNode.NextNode = originalNextNode;
+
+            if (originalNextNode is not null)
+                originalNextNode.PreviousNode = originalPreviousNode;
+
+            if (node.Equals(_head))
+                _head = originalNextNode;
+
+            if (node.Equals(_tail))
+                _tail = originalPreviousNode;
+
+            Count--;
         }
 
         public void ReverseNodes()

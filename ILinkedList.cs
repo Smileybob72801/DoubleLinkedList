@@ -8,5 +8,6 @@
         void InsertAfterNode(Node<T?> newNode, Node<T?> originalNode);
         void InsertBeforeNode(Node<T?> newNode, Node<T?> originalNode);
         void ReverseNodes();
+        void RemoveNode(Node<T?> node);
     }
 }
