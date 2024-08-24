@@ -52,17 +52,11 @@ namespace DoubleLinkedList
 
         public void Clear()
         {
-            Node<T?>? currentNode = _head;
-
-            while (currentNode is not null)
+            foreach(Node<T?> node in GetNodes())
             {
-                Node<T?>? nextNode = currentNode.NextNode;
+                node.NextNode = null;
 
-                currentNode.NextNode = null;
-
-                currentNode.PreviousNode = null;
-
-                currentNode = nextNode;
+                node.PreviousNode = null;
             }
 
             _head = null;
@@ -94,18 +88,14 @@ namespace DoubleLinkedList
             if (arrayIndex < 0 || arrayIndex >= array.Length)
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex));
 
-            if (array.Length - arrayIndex < Count)
+            if (array.Length < Count + arrayIndex)
                 throw new ArgumentException("Insufficient space in target array.");
 
-            Node<T?>? currentNode = _head;
-
-            while (currentNode is not null)
+            foreach (Node<T?> node in GetNodes())
             {
-                array[arrayIndex] = currentNode.Data;
+                array[arrayIndex] = node.Data;
 
                 arrayIndex++;
-
-                currentNode = currentNode.NextNode;
             }
         }
 

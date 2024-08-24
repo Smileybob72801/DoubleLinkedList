@@ -39,7 +39,7 @@ namespace DoubleLinkedList
             }
             Console.WriteLine();
 
-            Console.WriteLine("Using the Remove method to remove \"Little\", and then" +
+            Console.WriteLine("Using the Remove method to remove \"Little\", and then " +
                 "iterating the linked list again.");
             myList.Remove("Little");
             foreach (string? item in myList)
