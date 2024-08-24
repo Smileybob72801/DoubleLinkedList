@@ -52,26 +52,35 @@ namespace DoubleLinkedList
 
         public void Clear()
         {
+            foreach (Node<T?> node in GetNodes())
+            {
+                if (node.NextNode is not null)
+                    node.NextNode.PreviousNode = null;
+
+                if (node.PreviousNode is not null)
+                {
+                    node.PreviousNode.NextNode = null;
+                    node.PreviousNode = null;
+                }
+            }
+
             _head = null;
             _tail = null;
+
             Count = 0;
         }
 
         public bool Contains(T? item)
         {
-            Node<T?>? currentNode = _head;
-
-            while (currentNode is not null)
+            foreach (Node<T?> node in GetNodes())
             {
-                T? data = currentNode.Data;
+                T? data = node.Data;
 
-                if ( (data is null && item is null) ||
+                if ((data is null && item is null) ||
                     (data is not null && data.Equals(item)))
                 {
                     return true;
                 }
-
-                currentNode = currentNode.NextNode;
             }
 
             return false;
@@ -138,22 +147,31 @@ namespace DoubleLinkedList
 
         public IEnumerator<T?> GetEnumerator()
         {
-            Node<T?>? currentNode = _head;
-
-            while (currentNode is not null)
+            foreach (Node<T?> node in GetNodes())
             {
-                yield return currentNode.Data;
-                currentNode = currentNode.NextNode;
+                yield return node.Data;
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator() =>
+            GetEnumerator();
+
+        private IEnumerable<Node<T?>> GetNodes()
         {
-            Node<T?>? currentNode = _head;
+            Node<T?>? currentNode;
+
+            if (_head is null)
+            {
+                yield break;
+            }
+            else
+            {
+                currentNode = _head;
+            }
 
             while (currentNode is not null)
             {
-                yield return currentNode.Data;
+                yield return currentNode;
                 currentNode = currentNode.NextNode;
             }
         }

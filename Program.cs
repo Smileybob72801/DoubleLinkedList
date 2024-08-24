@@ -38,6 +38,8 @@ namespace DoubleLinkedList
             }
             Console.WriteLine();
 
+            myList.Clear();
+
             Console.ReadKey();
         }
     }
