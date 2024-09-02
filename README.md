@@ -11,6 +11,27 @@
 - 📋 **Copy:** Copy the list's contents to an array.
 - ♻️ **Enumerate:** Iterate through the list using `foreach`.
 
+## Build The Project
+1. Clone the project:
+```bash
+git clone https://github.com/Smileybob72801/DoubleLinkedList.git
+```
+
+2. Navigate to project directory:
+```bash
+cd DoubleLinkedList/DoubleLinkedList
+```
+
+3. Build the project
+```bash
+dotnet build
+```
+
+4. Run the app:
+```bash
+dotnet run
+```
+
 ## Technologies Used
 - **C#** for the implementation of the doubly linked list.
 - **.NET Core** for compiling and running the application.
