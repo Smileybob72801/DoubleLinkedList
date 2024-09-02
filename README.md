@@ -16,8 +16,8 @@
 - **.NET Core** for compiling and running the application.
 
 ## Prerequisites
--**.NET SDK 8.0** or later
+- **.NET SDK 8.0** or later
 
 ## Future Enhancements
--⚡ Performance Optimization: Optimize the list operations for large datasets.
--📈 Advanced Traversal Methods: Implement more complex traversal and searching algorithms.
+- ⚡ Performance Optimization: Optimize the list operations for large datasets.
+- 📈 Advanced Traversal Methods: Implement more complex traversal and searching algorithms.
