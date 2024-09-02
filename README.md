@@ -20,7 +20,7 @@ git clone https://github.com/Smileybob72801/DoubleLinkedList.git
 
 2. Navigate to project directory:
 ```bash
-cd DoubleLinkedList/DoubleLinkedList
+cd DoubleLinkedList
 ```
 
 3. Build the project
